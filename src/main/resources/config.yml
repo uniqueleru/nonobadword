@@ -1,0 +1,10 @@
+# OpenAI 설정
+openai-api-key: "your-api-key"
+gpt-model: "gpt-4o-mini"  # 사용할 GPT 모델
+context-messages: 10      # 분석시 참고할 이전 대화 수
+toxicity-threshold: 0.7   # 비방 판단 임계값 (0-1)
+
+# 음성 설정
+silence-threshold-ms: 1000
+min-audio-length-ms: 1500
+max-buffer-size-ms: 10000

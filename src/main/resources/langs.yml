@@ -1,0 +1,2 @@
+death-message: "&e{player}님이 &4'{message}'&e라는 나쁜말을 해서 사망에 이르셨습니다 &7(나쁜정도: {toxicity})"
+ai-reason-message: "&7AI: {reason}"
