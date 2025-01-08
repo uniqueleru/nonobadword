@@ -50,7 +50,6 @@ public class ToxicityAnalyzer {
     public void analyzeMessage(UUID playerUuid, String message) {
 
         List<String> recentMessages = getRecentMessages(contextMessages);
-        recentMessages.add(message);
 
         JSONObject requestBody = new JSONObject()
                 .put("model", model)
@@ -58,13 +57,16 @@ public class ToxicityAnalyzer {
                         .put(new JSONObject()
                                 .put("role", "developer")
                                 .put("content", "You are analyzing korean chat messages in a game." +
-                                        "For the last message in the conversation, provide: " +
+                                        "Based on the history of the conversation so far, provide the following analysis of the last message" +
                                         "1. A toxicity score from 0 to 1 where 1 is extremely toxic " +
                                         "2. A brief reason in Korean for the score (1-2 sentence, must include which word was toxic) " +
-                                        "ONLY response with following format: {score}|{reason}"))
+                                        "Previous conversation history: " +
+                                        String.join("\n", recentMessages) +
+                                        "ONLY response with following format: {score}|{reason}"
+                                ))
                         .put(new JSONObject()
                                 .put("role", "user")
-                                .put("content", String.join("\n", recentMessages))));
+                                .put("content", "last message: " + String.join("\n", message))));
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

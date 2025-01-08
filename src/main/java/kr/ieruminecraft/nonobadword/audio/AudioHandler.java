@@ -3,6 +3,7 @@ package kr.ieruminecraft.nonobadword.audio;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.opus.OpusDecoder;
+import kr.ieruminecraft.nonobadword.Nonobadword;
 
 import java.util.Map;
 import java.util.UUID;
@@ -35,6 +36,9 @@ public class AudioHandler {
     }
 
     public void handleMicrophonePacket(VoicechatServerApi serverApi, MicrophonePacketEvent event) {
+        if (!Nonobadword.getInstance().isSystemEnabled()) {
+            return;
+        }
         UUID playerUuid = event.getSenderConnection().getPlayer().getUuid();
         byte[] opusData = event.getPacket().getOpusEncodedData();
 
@@ -42,7 +46,6 @@ public class AudioHandler {
         audioBuffers.putIfAbsent(playerUuid, new AudioBuffer(playerUuid));
         AudioBuffer buffer = audioBuffers.get(playerUuid);
 
-        // 길이 0 → 말이 끝났다는 신호. 단, 바로 flushX, "n초 침묵" 체크는 별도
         if (opusData.length == 0) {
             return;
         }

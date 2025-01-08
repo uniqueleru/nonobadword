@@ -59,7 +59,7 @@ public class AudioBuffer {
                 () -> {
                     File wavFile = null;
                     try {
-                        // 1) PCM -> WAV 파일
+                        // 1) PCM -> WAV
                         wavFile = pcmToWav();
                         // 2) OpenAI Whisper
                         String recognizedText = OpenAiTranscriber.transcribe(wavFile);

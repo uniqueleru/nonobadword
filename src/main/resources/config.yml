@@ -1,10 +1,18 @@
+enabled: true
+
+#S-T-T 설정
+whisper:
+  prompt: "각종, 고유, 명사들"
+
 # OpenAI 설정
 openai-api-key: "your-api-key"
 gpt-model: "gpt-4o-mini"  # 사용할 GPT 모델
 context-messages: 10      # 분석시 참고할 이전 대화 수
 toxicity-threshold: 0.7   # 비방 판단 임계값 (0-1)
 
-# 음성 설정
+# 해당 시간만큼 말이 없을시 현재 버퍼를 분석합니다
 silence-threshold-ms: 1000
+# 음성 분석에 요구되는 최소 버퍼 길이
 min-audio-length-ms: 1500
+# 음성 버퍼의 길이가 이 이상 넘어가면 강제로 비웁니다
 max-buffer-size-ms: 10000

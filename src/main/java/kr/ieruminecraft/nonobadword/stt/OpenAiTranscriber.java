@@ -25,7 +25,10 @@ public class OpenAiTranscriber {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         builder.addFormDataPart("model", "whisper-1");
-
+        String prompt = Nonobadword.getInstance().getWhisperPrompt();
+        if (!prompt.isEmpty()) {
+            builder.addFormDataPart("prompt", prompt);
+        }
         RequestBody fileBody = RequestBody.create(wavFile, MediaType.parse("audio/wav"));
         builder.addFormDataPart("file", wavFile.getName(), fileBody);
         builder.addFormDataPart("language", "ko");

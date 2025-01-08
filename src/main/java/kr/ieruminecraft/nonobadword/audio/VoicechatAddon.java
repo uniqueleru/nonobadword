@@ -7,10 +7,6 @@ import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import kr.ieruminecraft.nonobadword.Nonobadword;
 
-/**
- * Simple Voice Chat과 연동되는 "Addon" 클래스
- * VoicechatPlugin 구현체
- */
 public class VoicechatAddon implements VoicechatPlugin {
 
     private VoicechatServerApi serverApi;
@@ -42,7 +38,6 @@ public class VoicechatAddon implements VoicechatPlugin {
      * 플레이어가 마이크로 말할 때마다 호출
      */
     private void onMicrophonePacket(MicrophonePacketEvent event) {
-        // serverApi가 null이면 초기화가 안 된 상태
         if (serverApi == null) {
             return;
         }

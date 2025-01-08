@@ -5,3 +5,8 @@ api-version: '1.21'
 depend: [voicechat]
 author: Ieru
 description: '바르고 고운말'
+
+commands:
+  nbw:
+    description: 김돼지 상우
+    usage: /nbw <enable|disable|reload>

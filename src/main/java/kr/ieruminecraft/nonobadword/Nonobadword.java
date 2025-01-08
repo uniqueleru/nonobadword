@@ -3,6 +3,7 @@ package kr.ieruminecraft.nonobadword;
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import kr.ieruminecraft.nonobadword.audio.AudioHandler;
 import kr.ieruminecraft.nonobadword.audio.VoicechatAddon;
+import kr.ieruminecraft.nonobadword.commands.NonobadwordCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -11,12 +12,16 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Nonobadword extends JavaPlugin {
 
+    private NonobadwordCommand commandExecutor;
+
     private static Nonobadword instance;
+    private boolean enabled;
 
     private String openAiApiKey;
     private long silenceThresholdMillis;
     private long minAudioLengthMs;
     private long maxBufferSizeMs;
+    private String whisperPrompt;
 
     @Override
     public void onEnable() {
@@ -27,10 +32,12 @@ public class Nonobadword extends JavaPlugin {
         saveDefaultConfig();
         loadConfigValues();
 
-        // AudioHandler에 침묵 임계값 전달
+        commandExecutor = new NonobadwordCommand(this);
+        getCommand("nbw").setExecutor(commandExecutor);
+        getCommand("nbw").setTabCompleter(commandExecutor);
+
         AudioHandler.getInstance().setSilenceThreshold(silenceThresholdMillis);
 
-        // (중요) SVC에 등록할 'VoicechatAddon' 인스턴스 생성 & 등록
         BukkitVoicechatService service =
                 getServer().getServicesManager().load(BukkitVoicechatService.class);
         try {
@@ -55,12 +62,15 @@ public class Nonobadword extends JavaPlugin {
         getLogger().info("[Nonobadword] Plugin disabled.");
     }
 
-    private void loadConfigValues() {
+    public void loadConfigValues() {
         reloadConfig();
+        this.enabled = getConfig().getBoolean("enabled", true); // 기본값은 true
         this.openAiApiKey = getConfig().getString("openai-api-key", "NO_KEY_FOUND");
         this.maxBufferSizeMs = getConfig().getLong("max-buffer-size-ms", 10000L);
         this.silenceThresholdMillis = getConfig().getLong("silence-threshold-ms", 3000L);
         this.minAudioLengthMs = getConfig().getLong("min-audio-length-ms", 1000L);
+        this.whisperPrompt = getConfig().getString("whisper-prompt","상우,규민,이루,민재,민재야,이루야,규민아,상우야");
+        getLogger().info("[Nonobadword] System enabled: " + enabled);
         getLogger().info("[Nonobadword] Loaded OpenAI API Key: "
                 + (openAiApiKey.equals("NO_KEY_FOUND") ? "NOT_SET" : "****"));
         getLogger().info("[Nonobadword] Loaded Silence Threshold: " + silenceThresholdMillis + " ms");
@@ -78,5 +88,11 @@ public class Nonobadword extends JavaPlugin {
     }
     public long getMaxBufferSizeMs() {
         return maxBufferSizeMs;
+    }
+    public boolean isSystemEnabled() {
+        return enabled;
+    }
+    public String getWhisperPrompt() {
+        return whisperPrompt;
     }
 }
