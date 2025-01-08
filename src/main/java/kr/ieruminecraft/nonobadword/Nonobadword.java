@@ -6,10 +6,6 @@ import kr.ieruminecraft.nonobadword.audio.VoicechatAddon;
 import kr.ieruminecraft.nonobadword.commands.NonobadwordCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * 1) Bukkit/Spigot 플러그인 진입점
- * 2) Simple Voice Chat 애드온(VoicechatAddon)을 등록
- */
 public class Nonobadword extends JavaPlugin {
 
     private NonobadwordCommand commandExecutor;
