@@ -10,5 +10,4 @@ OpenAI API 의 Whisper, gpt-4o-mini, 모델을 사용합니다.
 
 config.yml 에 OpenAI API 키를 기입해야하며 플러그인 구동시 토큰 비용이 발생합니다.
 
-이에 관해 잘 모르시는 분들은 플러그인 구동을 권장드리지 않습니다.
 
