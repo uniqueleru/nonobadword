@@ -1,8 +1,7 @@
 enabled: true
 
 #S-T-T 설정
-whisper:
-  prompt: "각종, 고유, 명사들"
+whisper-prompt: "각종, 고유, 명사들"
 
 # OpenAI 설정
 openai-api-key: "your-api-key"

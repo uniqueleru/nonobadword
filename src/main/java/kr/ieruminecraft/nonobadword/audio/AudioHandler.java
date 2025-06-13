@@ -36,7 +36,7 @@ public class AudioHandler {
     }
 
     public void handleMicrophonePacket(VoicechatServerApi serverApi, MicrophonePacketEvent event) {
-        if (!Nonobadword.getInstance().isSystemEnabled()) {
+        if (!Nonobadword.getInstance().isSystemEnabled()){
             return;
         }
         UUID playerUuid = event.getSenderConnection().getPlayer().getUuid();
